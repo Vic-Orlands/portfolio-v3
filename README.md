@@ -54,4 +54,4 @@ Thus, you are free to fork, clone, and modify this project for your own use. Jus
 
 ## Deploy on Vercel
 
-Deployed using `Vercel`, you can check out the live version here - [MezieIV]().
+Deployed using `Vercel`, you can check out the live version here - [MezieIV](https://mezieiv.vercel.app/).

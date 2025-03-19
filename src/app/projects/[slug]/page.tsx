@@ -6,17 +6,16 @@ import { Metadata } from "next";
 import ProjectDetail from "./project-detail";
 import { notFound } from "next/navigation";
 
-interface ProjectDetailProps {
-  params: {
-    slug: string;
-  };
-}
+type paramsType = Promise<{ slug: string }>;
 
 // Generate metadata for the page
 export async function generateMetadata({
   params,
-}: ProjectDetailProps): Promise<Metadata> {
-  const project = projects.find((p) => p.slug === params.slug);
+}: {
+  params: paramsType;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     return {
@@ -37,8 +36,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Page({ params }: ProjectDetailProps) {
-  const project = projects.find((p) => p.slug === params.slug);
+export default async function Page({ params }: { params: paramsType }) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     return notFound();

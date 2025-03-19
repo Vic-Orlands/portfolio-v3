@@ -3,16 +3,15 @@ import { notFound } from "next/navigation";
 import BlogPostPage from "./blog-post";
 import { getBlogPost, getBlogSlugs } from "@/data/blog";
 
-interface BlogPostPageProps {
-  params: {
-    slug: string;
-  };
-}
+type paramsType = Promise<{ slug: string }>;
 
 export async function generateMetadata({
   params,
-}: BlogPostPageProps): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+}: {
+  params: paramsType;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPost(slug);
 
   if (!post) {
     return {
@@ -34,8 +33,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Post({ params }: BlogPostPageProps) {
-  const post = await getBlogPost(params.slug);
+export default async function Post({ params }: { params: paramsType }) {
+  const { slug } = await params;
+  const post = await getBlogPost(slug);
 
   if (!post) {
     notFound();

@@ -79,18 +79,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 <span>Live Demo</span>
               </Link>
             )}
-
-            {project.externalUrl && (
-              <Link
-                href={project.externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center hover:text-black dark:hover:text-white transition-colors"
-              >
-                <ExternalLink size={16} className="mr-1" />
-                <span>External Link</span>
-              </Link>
-            )}
           </div>
 
           <div className="prose dark:prose-invert max-w-none">
